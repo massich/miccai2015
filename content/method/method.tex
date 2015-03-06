@@ -41,28 +41,19 @@ Equation~\eqref{eq:labelingeq} describes this cost function as the combination o
 \end{equation}
 
 Where, the left hand side of the expression integrates the so-called \emph{data} term, while the right hand side integrates the \emph{pairwise} term, which is also referred as the \emph{smoothing} term.
-Both terms are shaped by $\mathcal{S}$ and evaluated in the labelling space $\mathcal{W}$.
+Both terms are shaped by $\mathcal{S}$ and evaluated in the labelling space $\mathcal{W}$. In our quest to optimize the cost function $U(\cdot)$, it is required to define a representation for the set $\mathcal{S}$, a data term $D(\cdot)$, a pairwise term $V(\cdot)$, and a proper minimization methodology.
 
-{\color{red}In our quest to optimize the cost function $U(\cdot)$, it is required to define a representation for the set $\mathcal{S}$, a data term $D(\cdot)$, a pairwise term $V(\cdot)$, and a proper minimization methodology.}
+\emph{The set $\mathcal{S}$} that represents the image can be, in general, any discrete set representing the image (i.e.\, pixels, overlapping or non overlapping windows, super-pixels, etc.). 
 
-\paragraph{The set $\mathcal{S}$}
-that represents the image can be, in general, any discrete set representing the image (i.e.\, pixels, overlapping or non overlapping windows, super-pixels, etc.). 
-
-\paragraph{The data term} \label{sec:method:dataTerm}
-, given a label configuration $\omega \in \mathcal{W}$, penalizes the labelling of a particular image element or site ($\omega_s = l$) based on the data associated to $s$.
-In this manner, $D_s(\omega_s=l_\cmark) << D_s(\omega_s=l_\xmark)$.
-
-Designing an obscure heuristic to comply with the desired behaviour of $D(\cdot)$ out of the box, is rather a complicated task.
+\emph{The data term}\label{sec:method:dataTerm}, given a label configuration $\omega \in \mathcal{W}$, penalizes the labelling of a particular image element or site ($\omega_s = l$) based on the data associated to $s$. In this manner, $D_s(\omega_s=l_\cmark) << D_s(\omega_s=l_\xmark)$. Designing an obscure heuristic to comply with the desired behaviour of $D(\cdot)$ out of the box, is rather a complicated task.
 {\color{blue}
 Therefore, an easier and cleaner approach is to take advantage of \ac{ml} techniques to design this data cost in a systematic manner based on a training stage. 
 The idea is to generate a data model for each label (or class) in $\mathcal{L}$ from training samples, and let $D(\cdot)$ be a distance or goodness measure reflecting the likelihood for $s$ to belong to class $l$.
-Different features to represent the data, custom construction of the data models by using different classifiers, training techniques or including arbitrary constraints; can be used to achieve the desired data term without changing the overall scheme.}
+Different features to represent the data, custom construction of the data models by using different classifiers, training techniques or including arbitrary constraints; can be used to achieve the desired data term without changing the overall scheme.} 
 
 {\color{red} Defining the data term $D(\cdot)$ with the help of \ac{ml} follows a systematic process that is flexible enough to encode any desired behaviour based on a training stage.  This representation is in fact depicted in the upper row in Fig.\,\ref{fig:method}.  For each site $s \in \mathcal{S}$, features describing $s$ are designed. Then, different optional steps can be applied to this set of feature: (i) features normalization, (ii) features selection or (iii) features extraction. Finally, the data term $D(\cdot)$ is encoded based on \ac{ml} classifiers, the features and a training step. }
 
-\paragraph{The pairwise term} \label{sec:method:mrfTerm}
-%The pairwise term 
-represents the cost associated to $\omega_s$ taking into account the labels of its neighbour sites, $\omega_r$, $r \in \mathcal{N}_{s}$. 
+\emph{The pairwise term}\label{sec:method:mrfTerm} represents the cost associated to $\omega_s$ taking into account the labels of its neighbour sites, $\omega_r$, $r \in \mathcal{N}_{s}$. 
 This term models a \ac{mrf} or a \ac{crf}.
 The typical form of this term, given in Eq.\,\eqref{eq:smoothing}, is called homogenization which acts as a regularization factor favouring configurations that have a coherent labelling.
 
