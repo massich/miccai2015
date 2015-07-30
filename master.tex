@@ -4,14 +4,14 @@
 \input{latex/filesystem/package.tex}        % contains the latex packages
 \input{content/frontmatter.tex}             % contains the Title and Autor info
 \input{latex/filesystem/fileSetup.tex}      % contains package and variables init.
-\input{content/acronym_definition.tex}      % contains the acronims 
+\input{content/acronym_definition.tex}      % contains the acronims
 
 %% Select inputing only one part of the document
 %\includeonly{content/intro/intro}   % the file wihtout .tex
 %\includeonly{content/other/other_content}
- 
-\begin{document} 
-\maketitle 
+
+\begin{document}
+\maketitle
 
 \begin{abstract}
 \acresetall  % reset the acronyms from the title (if any)
@@ -27,9 +27,9 @@ Therefore, this article proposes a highly modular and flexible framework for seg
 %% Incldue the content without .tex extension
 \acresetall  % reset the acronyms from the abstract
 \include*{content/intro/intro}          % the file wihtout .tex
-\include*{content/method/method} 
-\include*{content/method/applied}       
-%\include*{content/features/features}    
+\include*{content/method/method}
+\include*{content/method/applied}
+%\include*{content/features/features}
 \include*{content/results/results}
 
 \section{Conclusions}
@@ -40,4 +40,4 @@ A higher \ac{aov} result can be achieved by refining the delineation resulting f
 \bibliography{./content/literature_review}   %>>>> bibliography data in report.bib
 \bibliographystyle{splncs03}
 
-\end{document} 
+\end{document}
