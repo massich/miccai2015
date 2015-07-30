@@ -1,7 +1,7 @@
 MICCAI 2015 Breast segmentation Article based on my PhD thesis
 ==============================================================
 
-What ? 
+What ?
 ------
 look at the damn title. This repo contains the latex for the article.
 
@@ -22,14 +22,15 @@ MICCAI attracts scientists, engineers, and clinicians from a wide range of disci
 * [ ] Neuroscience image computing
 * [ ] Computational anatomy
 * [ ] Computational physiology
-* [ ] Clinical and biological applications 
+* [ ] Clinical and biological applications
 
 ### Important dates
-* [x] **2015-02-27 11:59 PM PST** Registration of paper with title, abstract and authors
-* [ ] **2015-03-06 11:59 PM PST** Full paper submission deadline
-* [ ] **2015-03-10 11:59 PM PST** Supplementary material deadline
+* [x] **2015-06-26 11:59 PM PST** Paper submission deadline
+* [x] **2015-07-20 11:59 PM PST** Notification of acceptance
+* [ ] **2015-08-10 11:59 PM PST** Camera-ready paper
+* [ ] **2015-09-09 11:59 PM PST** Workshop
 
-### Submission Guidelines 
+### Submission Guidelines
 * [x] Papers should be formatted in Lecture Notes in Computer Science style.
 * [ ] 8 pages maximum.
 * [ ] The review process is double blind:
@@ -56,14 +57,14 @@ The document structure is as follows
     |____.gitignore           % indicates git which files to ignore
     |____.git
     | |__ % Contains all the info regarding the repository
-    |    
+    |
     |____master.pdf           % document output
     |____master.tex           % document source
     |____README.md            % this document you are reading.
     |
     |____content
-    | |   % This folder contains any file related with the content of the 
-    | |   % document. Each capter (or section) are stored in separated 
+    | |   % This folder contains any file related with the content of the
+    | |   % document. Each capter (or section) are stored in separated
     | |   % folders, which contain a figures subdirectory. Other content
     | |   % refering to the whole document such as frontmatter, acronyms
     | |   % and bibliography can be found directly in this content folder.
@@ -98,13 +99,7 @@ Keeping this file updated is important, it can help in further projects.
 
 TODO
 ----
-* [x] Branch properly
-* [x] Reduce Abstract
-* [ ] Reduce Introduction
-* [ ] Kill comparison references (and refer to the PhD dissertation)
-* [x] Add authors and replace information by *
 * [ ] Evolve figures
-* [ ] Tray a split strategy (1) Generic method, (2) for breast
-* [ ] 
-* [ ] 
-* [ ] 
+* [ ] Add Bourgogne's Project reference
+* [ ]
+* [ ]
