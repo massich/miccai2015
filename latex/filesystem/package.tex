@@ -1,21 +1,21 @@
 %  The subcaption package allows for subfloat figure within a single float.
-%  This package substitutes the depregated subfigure and subfig packages 
-%  allowing to have subfigures within figures, or subtables within table 
-%  floats. Subfloats have their own caption, and an optional global 
-%  caption. 
+%  This package substitutes the depregated subfigure and subfig packages
+%  allowing to have subfigures within figures, or subtables within table
+%  floats. Subfloats have their own caption, and an optional global
+%  caption.
 %  >> WARNING: some journal templates from Springer and IEETrans might not
-%              be compatible with this package forcing to use the 
+%              be compatible with this package forcing to use the
 %              deprecated packages instead.
 \usepackage{subcaption}
 \usepackage{subfig}
 
-%  The following command loads a graphics package to include images 
+%  The following command loads a graphics package to include images
 %  in the document. It may be necessary to specify a DVI driver option,
-%  e.g., [dvips], but that may be inappropriate for some LaTeX 
-%  installations. 
+%  e.g., [dvips], but that may be inappropriate for some LaTeX
+%  installations.
 \usepackage[]{graphicx}
 
-% In order to include files without having a clear page using \include*, 
+% In order to include files without having a clear page using \include*,
 % the newclude package is required
 \usepackage{newclude}
 
@@ -80,12 +80,14 @@
 %%---- end tikz legends
 
 
-% Clever cross referencing. Using cleverref, instead of writting 
+% Clever cross referencing. Using cleverref, instead of writting
 % figure~\ref{...} or equation~\ref{...}, only \cref{...} is required.
 % The package interprates the references and introduces the figure, fig.,
-% equation, eq., etc keywords. \Cref forces first letter capital. 
+% equation, eq., etc keywords. \Cref forces first letter capital.
 % >> WARNING: This package needs to be loaded after hyperref, math packages,
 %             etc. if used.
 %             Cleveref is recomended to load late
 %\usepackage{hyperref}
 \usepackage{cleveref}
+
+\usepackage{standalone}

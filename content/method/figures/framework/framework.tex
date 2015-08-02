@@ -22,13 +22,13 @@
 }
 
 \newcommand{\labelPic}[1]{
-\begin{tikzpicture}[ y=0.6pt,x=0.6pt,yscale=-1, inner sep=0pt, outer sep=0pt ]
+\begin{tikzpicture}[ y=0.2pt,x=0.2pt,yscale=-1, inner sep=0pt, outer sep=0pt ]
   {#1} %\bbox
 \end{tikzpicture}
 }
 
 \newcommand{\normalPic}[1]{
-\begin{tikzpicture}[ y=1pt,x=1pt,yscale=-1, inner sep=3pt, outer sep=3pt ]
+\begin{tikzpicture}[ y=0.4pt,x=0.4pt,yscale=-1, inner sep=0pt, outer sep=0pt ]
   {#1} %\bbox
 \end{tikzpicture}
 }
@@ -42,15 +42,15 @@
   \end{tikzpicture}
 }
 
-\begin{tikzpicture}[y=1pt,x=1pt,yscale=-1, inner sep=0pt, outer sep=0pt]
+\begin{tikzpicture}[y=0.2pt,x=0.2pt,yscale=-1, inner sep=0pt, outer sep=0pt]
 
 %% Drawing the Nodes
   % Original Image
   \node[label={below:test image}] at(0,0)
     (bwImage){\normalPic{\bwImage}};
 
-  % Mapping
-  \node[right=50pt of bwImage, label={below:Mapping}]
+  % Mappinj
+  \node[right=30pt of bwImage, label={below:Mapping}]
     (map){\normalPic{\map}};
 
   % features
@@ -58,30 +58,30 @@
     (features){\normalPic{\featuresBlock}};
 
   % SVM
-  \node[right=100pt of features, label={below:Classifier}]
+  \node[right=50pt of features, label={below:Classifier}]
     (svm){\normalPic{\classBlock}};
 
   % MRF
-  \node[yshift=-130pt, label={below:MRF}] at ($(features)!0.8!(svm)$)
+  \node[yshift=-70pt, label={below:MRF}] at ($(features)!0.7!(svm)$)
     (mrf){\normalPic{\mrfBlock}};
 
   % Graph-Cuts
-  \node[below right=10pt and 20pt of svm, label={below:Minimization}]
+  \node[below right=10pt and 10pt of svm, label={below:Minimization}]
     (min){\normalPic{\minimizationBlock}};
 
   % Re-map
-  \node[right=50pt of min, label={below:Re-Mapping}]
+  \node[right=30pt of min, label={below:Re-Mapping}]
     (remap){\normalPic{\map}};
 
   % Output
-  \node[right=50pt of remap, label={below:Segmentation}]
+  \node[right=30pt of remap, label={below:Segmentation}]
     (output){\normalPic{\colorImage}};
 
 %% Draw the links
     %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
   \coordinate (xx) at ($(bwImage.east)!0.5!(map.west)$);
-  \tikzstyle{p}=[draw=gray, line width=5pt, -triangle 90]
-  \tikzstyle{l}=[inner sep=5pt, at start, above, anchor=south west, line width=1pt]
+  \tikzstyle{p}=[draw=gray, line width=3pt, -latex]
+  \tikzstyle{l}=[inner sep=3pt, at start, above, anchor=south west, line width=1pt]
   \path[p]   (xx)        |-  (features.west);
   \path[p]   (map.east)  -|  (mrf.north);
   \path[p]   (bwImage)   --  node[l]{$I(\cdot)$}                               (map);
@@ -90,7 +90,7 @@
   \path[p]   (mrf.east)  -|  node[l]{$V_{s,r}(\cdot,\cdot)$}                   (min.south);
   %\path[p]  (map.east)  -|  node[l](S){$\mathcal{S}$} node[below]{\Sexamples} ([yshift=7pt]features.south);
   \path[p]   (map.east)  -|  node[l](S){$\mathcal{S}$}                         ([yshift=7pt]features.south);
-  \path[p]   (features)  --  node[l](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
+  \path[p]   (features)  --  node[l,inner sep=0pt](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
   \path[p]   (remap)     --  node[l]{$I'(\cdot)$}                              (output);
   \path[p, dashed] (xx) |- node(to_mrf){}(mrf.west) ;
 
@@ -101,21 +101,21 @@
   \node[below left=10pt and 0pt of table, anchor=north west, inner sep=0pt]{\labelPic{\classificableSample}};
 
 %% Draw the blocks
-  \node[fill=white, anchor=west, text width=3cm] at (bwImage.west|-features.north)
+  \node[fill=white, anchor=west, text width=3cm, yshift=15pt] at (bwImage.west|-features.north)
     (stage_1){1. Mapping-Stage $I(\cdot) \rightarrow \{\mathcal{S}, \mathcal{F}\}$};
   \node[fill=white, anchor=west, text width=3.5cm] at (svm|-stage_1)
     (stage_2){2. Minimization-Stage $\hat{\omega} = \arg \min_{{\omega}} \,U(\omega)$};
   \node[fill=white, anchor=west, text width=3.5cm] at (remap|-stage_1)
     (stage_3){3. Re-Mapping-Stage $\{\mathcal{S},\hat{\omega}\} \rightarrow I(\cdot)$};
   % \draw (bwImage.west|-features.north) node[fill=green]{xxxxx};
-  \coordinate[xshift=-2em] (a) at (stage_1.west);
-  \coordinate[yshift=-5pt] (aa) at (table.east|-mrf.south);
+  \coordinate[xshift=-5pt] (a) at (stage_1.west);
+  \coordinate[yshift=-10pt] (aa) at (table.east|-mrf.south);
   \node[fit=(a)(aa), draw, dashed, very thin]{};
-  \coordinate[xshift=1em] (b) at (a-|aa);
-  \coordinate[xshift=-1em] (bb) at (aa-|remap.west);
+  \coordinate[xshift=5pt] (b) at (a-|aa);
+  \coordinate[xshift=-5pt] (bb) at (aa-|remap.west);
   \node[fit=(b)(bb), draw, dashed, very thin]{};
-  \coordinate[xshift=1em] (c) at (b-|bb);
-  \coordinate[xshift=2em] (cc) at (bb-|output.east);
+  \coordinate[xshift=5pt] (c) at (b-|bb);
+  \coordinate[xshift=5pt] (cc) at (bb-|output.east);
   \node[fit=(c)(cc), draw, dashed, very thin]{};
 \end{tikzpicture}
 \end{document}
