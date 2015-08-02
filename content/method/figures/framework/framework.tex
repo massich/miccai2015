@@ -28,11 +28,19 @@
 }
 
 \newcommand{\normalPic}[1]{
-\begin{tikzpicture}[ y=1pt,x=1pt,yscale=-1, inner sep=0pt, outer sep=0pt ]
+\begin{tikzpicture}[ y=1pt,x=1pt,yscale=-1, inner sep=3pt, outer sep=3pt ]
   {#1} \bbox
 \end{tikzpicture}
 }
 
+\newcommand{\Sexamples}{
+  \begin{tikzpicture}[node distance=3pt]
+    \tiny
+    \node[label={below:{\emph{i.e.}\,Pixels}}](a){\normalPic{\pointMapping}};
+    \node[label={below:{\emph{i.e.}\,Patches}}, right=of a](b){\normalPic{\rigitMapping}};
+    \node[label={below:{\emph{i.e.}\,Superpixels}}, right=of b]{\labelPic{\spMapping}};
+  \end{tikzpicture}
+}
 
 \begin{tikzpicture}[y=1pt,x=1pt,yscale=-1, inner sep=0pt, outer sep=0pt]
 
@@ -42,50 +50,55 @@
     (bwImage){\normalPic{\bwImage}};
 
   % Mapping
-  \node[right=40pt of bwImage, label={below:Mapping}]
+  \node[right=50pt of bwImage, label={below:Mapping}]
     (map){\normalPic{\map}};
 
   % features
-  \node[above right=10pt and 10pt of map, label={below:Features}]
+  \node[above right=10pt and 20pt of map, label={below:Features}]
     (features){\normalPic{\featuresBlock}};
 
   % SVM
-  \node[right=70pt of features, label={below:Classifier}]
+  \node[right=90pt of features, label={below:Classifier}]
     (svm){\normalPic{\classBlock}};
 
   % MRF
-  \node[yshift=-130pt, label={below:MRF}] at ($(features)!0.5!(svm)$)
+  \node[yshift=-130pt, label={below:MRF}] at ($(features)!0.7!(svm)$)
     (mrf){\normalPic{\mrfBlock}};
 
   % Graph-Cuts
-  \node[below right=10pt and 10pt of svm, label={below:Minimization}]
+  \node[below right=10pt and 20pt of svm, label={below:Minimization}]
     (min){\normalPic{\minimizationBlock}};
 
   % Re-map
-  \node[right=10pt of min, label={below:Re-Mapping}]
+  \node[right=50pt of min, label={below:Re-Mapping}]
     (remap){\normalPic{\map}};
 
   % Output
-  \node[right=40pt of remap, label={below:Segmentation}]
+  \node[right=50pt of remap, label={below:Segmentation}]
     (output){\normalPic{\colorImage}};
 
 %% Draw the links
     %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
   \coordinate (xx) at ($(bwImage.east)!0.5!(map.west)$);
-  \tikzstyle{p}=[draw=gray, line width=8pt, -triangle 45]
-  \path[p] (bwImage)    --   (map);
-  \path[p] (xx)         |-   (features.west);
-  \path[p] (map.east)   -|   (mrf.north);
-  \path[p] (svm.east)   -|   (min.north);
-  \path[p] (min)        --   (remap);
-  \path[p] (mrf.east)   -|   (min.south);
-  \path[p] (map.east)   -|   node (pointmap){\normalPic{\pointMapping}}   (features.south);
-  \path[p] (features)   --   node {\labelPic{\classificableSample}}       (svm);
-  \path[p] (remap)      --   node {\labelPic{\spMapping}}                 (output);
+  \tikzstyle{p}=[draw=gray, line width=5pt, -triangle 90]
+  \tikzstyle{l}=[inner sep=5pt, at start, above, anchor=south west, draw, line width=1pt]
+  \path[p]   (xx)        |-  (features.west);
+  \path[p]   (map.east)  -|  (mrf.north);
+  \path[p]   (bwImage)   --  node[l]{$I(\cdot)$}                               (map);
+  \path[p]   (svm.east)  -|  node[l]{$D_s(\cdot)$}                             (min.north);
+  \path[p]   (min)       --  node[l](w){$\hat{\omega}$}                        (remap);
+  \path[p]   (mrf.east)  -|  node[l]{$V_{s,r}(\cdot,\cdot)$}                   (min.south);
+  %\path[p]  (map.east)  -|  node[l](S){$\mathcal{S}$} node[below]{\Sexamples} ([yshift=7pt]features.south);
+  \path[p]   (map.east)  -|  node[l](S){$\mathcal{S}$}                         ([yshift=7pt]features.south);
+  \path[p]   (features)  --  node[l](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
+  \path[p]   (remap)     --  node[l]{$I'(\cdot)$}                              (output);
   \path[p, dashed] (xx) |- (mrf.west) ;
-  % \node[right=10pt of pointmap] (rigitmap){\normalPic{\rigitMapping}};
-  % \node[right=10pt of rigitmap] (spmap){\labelPic{\spMapping}};
 
+
+  % TODO: this should be nodes in the path, but I've troubles with the scopes
+  \node[below left=10pt of S, anchor=north west, inner sep=0pt]{\Sexamples};
+  \node[below left=10pt and 0pt of w, anchor=north west, inner sep=0pt]{\labelPic{\spMapping}};
+  \node[below left=10pt and 0pt of table, anchor=north west, inner sep=0pt]{\labelPic{\classificableSample}};
 \end{tikzpicture}
 \end{document}
 
