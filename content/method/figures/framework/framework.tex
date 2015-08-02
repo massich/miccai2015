@@ -1,7 +1,7 @@
 \documentclass{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
-\usetikzlibrary{shapes, positioning, fit, calc}
+\usetikzlibrary{shapes, arrows, positioning, fit, calc}
 
 \input{./framework_icons.tex}
 
@@ -42,7 +42,7 @@
     (bwImage){\normalPic{\bwImage}};
 
   % Mapping
-  \node[right=20pt of bwImage, label={below:Mapping}]
+  \node[right=40pt of bwImage, label={below:Mapping}]
     (map){\normalPic{\map}};
 
   % features
@@ -66,23 +66,25 @@
     (remap){\normalPic{\map}};
 
   % Output
-  \node[right=100pt of remap, label={below:Segmentation}]
+  \node[right=40pt of remap, label={below:Segmentation}]
     (output){\normalPic{\colorImage}};
 
 %% Draw the links
-  \path[draw, very thick]
-    (bwImage) edge node {} (map)
-    ($(bwImage.east)!0.5!(map.west)$) edge node {} (features.west)
-    (map.east) edge node (pointmap){\normalPic{\pointMapping}} (features.south)
-    (map.east) edge node {}(mrf.north)
-    (features) edge node {\labelPic{\classificableSample}} (svm)
-    (svm.east) edge node {} (min.north)
-    (min) edge node {} (remap)
-    (remap) edge node {\labelPic{\spMapping}} (output)
-    (mrf.east) edge node {} (min.south)
+    %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
+  \coordinate (xx) at ($(bwImage.east)!0.5!(map.west)$);
+  \path[draw=gray, -latex', line width=10pt]
+    (bwImage)    --   (map)
+    (xx)         |-   (features.west)
+    (map.east)   -|   (mrf.north)
+    (svm.east)   -|   (min.north)
+    (min)        --   (remap)
+    (mrf.east)   -|   (min.south)
+    (map.east)   -|   node (pointmap){\normalPic{\pointMapping}}   (features.south)
+    (features)   --   node {\labelPic{\classificableSample}}       (svm)
+    (remap)      --   node {\labelPic{\spMapping}}                 (output)
   ;
-  \path[draw, very thick]
-    ($(bwImage.east)!0.5!(map.west)$) edge node {} (mrf.west)
+  \path[draw, dashed, line width=10pt]
+    (xx) |- (mrf.west)
   ;
   \node[right=10pt of pointmap] (rigitmap){\normalPic{\rigitMapping}};
   \node[right=10pt of rigitmap] (spmap){\labelPic{\spMapping}};
