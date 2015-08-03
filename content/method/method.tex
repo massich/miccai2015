@@ -5,10 +5,10 @@
 
 Optimization methodologies offer a standardized manner to approach segmentation by minimizing an application-driven cost function~\cite{cremers2007review}.
 Figure~\ref{fig:method} illustrates a generic representation of the segmentation strategy, whereas concrete examples of its terms can be found in \cref{sec:methodApp} applied to \ac{bus}.
-The overall segmentation can be seen as a three-steps strategy: 
-(1) a mapping of the image into a discrete set of elements $\mathcal{S}$, 
-(2) the optimization stage which is formulated as a \emph{metric labelling} problem, 
-and (3) a re-mapping the labels obtained from the previous stage to produce the final delineation. 
+The overall segmentation can be seen as a three-steps strategy:
+(1) a mapping of the image into a discrete set of elements $\mathcal{S}$,
+(2) the optimization stage which is formulated as a \emph{metric labelling} problem,
+and (3) a re-mapping the labels obtained from the previous stage to produce the final delineation.
 
 \input{./content/method/figures/framework/framework_icons}
 \begin{figure}[htpb]
@@ -33,7 +33,7 @@ Then, the desired segmentation $\hat{\omega}$ corresponds to the labelling confi
 \label{eq:costMin}
 \end{equation}
 
-\footnotetext{\Cref{fig:methodTerms} illustrates the $\mathcal{S}$, $D(\cdot)$, and $V(\cdot)$ for the applied case of delineating breast structures in \ac{us} data. {\color{red}(final version the figure elements should be labelled)}}
+% \footnotetext{\Cref{fig:methodTerms} illustrates the $\mathcal{S}$, $D(\cdot)$, and $V(\cdot)$ for the applied case of delineating breast structures in \ac{us} data.}
 
 This goodness measure $U(\cdot)$ must be defined to take into account the appearance of the target region, its relation with other regions and other designing constraints.
 Equation~\eqref{eq:labelingeq} describes this cost function as the combination of two independent costs that need to be simultaneously minimized as a whole.
@@ -49,7 +49,7 @@ Both terms are shaped by $\mathcal{S}$ and evaluated in the labelling space $\ma
 In our quest to optimize the cost function $U(\cdot)$, it is required to define a representation for the set $\mathcal{S}$, a data term $D(\cdot)$, a pairwise term $V(\cdot)$, and a proper minimization methodology.
 
 \paragraph{The set $\mathcal{S}$}
-can be, in general, any discrete set representing the image (i.e.\, pixels, overlapping or non overlapping windows, super-pixels, etc.). 
+can be, in general, any discrete set representing the image (i.e.\, pixels, overlapping or non overlapping windows, super-pixels, etc.).
 
 \paragraph{The data term $D(\cdot)$,} \label{sec:method:dataTerm}
 given a label configuration $\omega \in \mathcal{W}$, penalizes the labelling of a particular image element or site ($\omega_s = l$) based on the data associated to $s$.
@@ -62,13 +62,13 @@ For each site $s \in \mathcal{S}$, features describing $s$ are designed. Then, d
 Thus, the data term $D(\cdot)$ can be seen as a distance or goodness measure reflecting the likelihood for $s$ to belong to class $l$.
 
 \paragraph{The pairwise term $V(\cdot,\cdot)$} \label{sec:method:mrfTerm}
-%The pairwise term 
-represents the cost associated to $\omega_s$ taking into account the labels of its neighbour sites, $\omega_r$, $r \in \mathcal{N}_{s}$. 
+%The pairwise term
+represents the cost associated to $\omega_s$ taking into account the labels of its neighbour sites, $\omega_r$, $r \in \mathcal{N}_{s}$.
 This term models a \ac{mrf} or a \ac{crf}.
 The typical form of this term, given in Eq.\,\eqref{eq:smoothing}, is called homogenization which acts as a regularization factor favouring configurations that have a coherent labelling.
 
 \begin{equation}
-V_{s,r}(\omega_s,\omega_r) = 
+V_{s,r}(\omega_s,\omega_r) =
 \begin{cases}
     \beta, & \text{if } \omega_s \ne \omega_r\\
     0,              & \text{otherwise}
@@ -78,14 +78,14 @@ V_{s,r}(\omega_s,\omega_r) =
 
 Figure~\ref{fig:methodTerms}c shows a visual interpretation of this cost.
 The more fragmented is the segmentation $\omega$, the higher the overall pairwise term; since every boundary brings a penalization $\beta$ to the total cost $U(\omega)$.
-In this manner the regularization term can be seen as a post-processing or denoising stage since that some sites will flip their labelling if the cost of fragmenting the regions is larger than the cost of adopting their neighbour's label. 
+In this manner the regularization term can be seen as a post-processing or denoising stage since that some sites will flip their labelling if the cost of fragmenting the regions is larger than the cost of adopting their neighbour's label.
 
-% Review %contribute have different or variable costs (see \cref{fig:methodTerms:boundary}) are also possible by taking into account not only relations in $\mathcal{S}$ of but also image information (see \cref{fig:method}). 
+% Review %contribute have different or variable costs (see \cref{fig:methodTerms:boundary}) are also possible by taking into account not only relations in $\mathcal{S}$ of but also image information (see \cref{fig:method}).
 %Further details can be found in \cref{sec:smoothing}.
 
 \paragraph{The minimization strategy} \label{sec:method:min}
 is determined by the nature of $U(\cdot)$ and $\mathcal{W}$, since not all the minimization strategies are applicable or adequate to find $\hat{\omega}$.
-The size of the labelling space $|\mathcal{W}|=|\mathcal{L}|^{|\mathcal{S}|}$, discontinuities in $U(\omega)$ due to $\mathcal{W}$ or the problem of local minima, 
+The size of the labelling space $|\mathcal{W}|=|\mathcal{L}|^{|\mathcal{S}|}$, discontinuities in $U(\omega)$ due to $\mathcal{W}$ or the problem of local minima,
 along with all the particular constrains of all the different minimization methodology.
 Need to be taken into account while choosing the most desirable minimization strategy.
 
@@ -94,27 +94,29 @@ Need to be taken into account while choosing the most desirable minimization str
     \begin{subfigure}[b]{0.19\textwidth}
         \centering
         \includegraphics[width=\textwidth]{problem}
-        %\caption{{\small Problem definition}}    
+        %\caption{{\small Problem definition}}
         \label{fig:methodTerms:problem}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.39\textwidth}  
-        \centering 
+    \begin{subfigure}[b]{0.39\textwidth}
+        \centering
         \includegraphics[width=\textwidth]{data}
-        %\caption[]% {{\small Data term}}    
+        %\caption[]% {{\small Data term}}
         \label{fig:methodTerms:data}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.39\textwidth}   
-        \centering 
-        \includegraphics[width=\textwidth]{smooth} 
+    \begin{subfigure}[b]{0.39\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{smooth}
         %\caption[]% {{\small Pairwise term }}
         \label{fig:methodTerms:boundary}
     \end{subfigure}
-    \caption {\small Methodology: (a) Problem definition, (b) Data term, (c) Pairwise term.} 
+    \caption {\small Methodology Highlights. (a) Problem definition,
+    (b) Data term: Site contribution for particular cases where $\omega_s=l|\forall s \in \mathcal{S}$,
+    (c) Pairwise term: labeling configurations with more boundaries are penalized.}
     \label{fig:methodTerms}
 \end{figure}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../master.tex"

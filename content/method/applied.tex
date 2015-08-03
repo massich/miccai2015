@@ -40,7 +40,9 @@ The selected features are the following:
   \begin{tabular}{>{\centering\bfseries}m{1in} l}
     \hline 
     $\mathcal{S}$ & Quick-Shift super-pixels \\
-    $D(\cdot)$ \vspace{20pt} &  \tikz[inner sep=0mm, outer sep=0mm]{\node[inner sep=0mm, outer sep=0mm, anchor=south west] {\includegraphics[height=40pt]{featAll}};} \\ 
+    & Background Echotexture: encoded in Appearance and SIFT-BoW\\
+    $D(\cdot)$ & Echo Pattern: encoded in Appearance, Atlas and Brightness\\% \tikz[inner sep=0mm, outer sep=0mm]{\node[inner sep=0mm, outer sep=0mm, anchor=south west] {\includegraphics[height=40pt]{featAll}};} \\ 
+    & Acoustic Posterior: encoded in Atlas and Brightness\\
     $V(\cdot,\cdot)$ & homogeneity as Eq.\,\eqref{eq:smoothing} \\
     $\arg \min U(\cdot)$ & Graph-Cuts \\ \hline
   \end{tabular}
