@@ -77,6 +77,25 @@
   \node[right=30pt of remap, label={below:Segmentation}]
     (output){\normalPic{\colorImage}};
 
+%% Draw the blocks
+  \coordinate (stageA) at ($(features.east)!0.5!(mrf.west)$);
+  \coordinate (stageB) at ($(min.east)!0.8!(remap.west)$);
+  \coordinate[yshift=15pt] (stageA) at (stageA|-current bounding box.north);
+  \coordinate[yshift=15pt] (stageB) at (stageB|-current bounding box.north);
+  \coordinate[yshift=15pt] (stageL) at (bwImage.west|-current bounding box.north);
+  \coordinate[yshift=15pt] (stageR) at (current bounding box.north east);
+  \draw[very thin, gray]
+    (stageA) -- (stageA|-current bounding box.south)
+    (stageB) -- (stageB|-current bounding box.south)
+  ;
+
+  \node[text width=3cm] at ($(stageL)!0.5!(stageA)$)
+    (stage_1){1. Mapping-Stage $I(\cdot) \rightarrow \{\mathcal{S}, \mathcal{F}\}$};
+  \node[text width=3.5cm] at ($(stageA)!0.5!(stageB)$)
+    (stage_2){2. Minimization-Stage $\hat{\omega} = \arg \min_{{\omega}} \,U(\omega)$};
+  \node[text width=3.5cm] at ($(stageB)!0.5!(stageR)$)
+    (stage_3){3. Re-Mapping-Stage $\{\mathcal{S},\hat{\omega}\} \rightarrow I(\cdot)$};
+
 %% Draw the links
     %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
   \coordinate (xx) at ($(bwImage.east)!0.5!(map.west)$);
@@ -100,23 +119,6 @@
   \node[below left=10pt and 0pt of w, anchor=north west, inner sep=0pt]{\labelPic{\spMapping}};
   \node[below left=10pt and 0pt of table, anchor=north west, inner sep=0pt]{\labelPic{\classificableSample}};
 
-%% Draw the blocks
-  \node[fill=white, anchor=west, text width=3cm, yshift=15pt] at (bwImage.west|-features.north)
-    (stage_1){1. Mapping-Stage $I(\cdot) \rightarrow \{\mathcal{S}, \mathcal{F}\}$};
-  \node[fill=white, anchor=west, text width=3.5cm] at (svm|-stage_1)
-    (stage_2){2. Minimization-Stage $\hat{\omega} = \arg \min_{{\omega}} \,U(\omega)$};
-  \node[fill=white, anchor=west, text width=3.5cm] at (remap|-stage_1)
-    (stage_3){3. Re-Mapping-Stage $\{\mathcal{S},\hat{\omega}\} \rightarrow I(\cdot)$};
-  % \draw (bwImage.west|-features.north) node[fill=green]{xxxxx};
-  \coordinate[xshift=-5pt] (a) at (stage_1.west);
-  \coordinate[yshift=-10pt] (aa) at (table.east|-mrf.south);
-  \node[fit=(a)(aa), draw, dashed, very thin]{};
-  \coordinate[xshift=5pt] (b) at (a-|aa);
-  \coordinate[xshift=-5pt] (bb) at (aa-|remap.west);
-  \node[fit=(b)(bb), draw, dashed, very thin]{};
-  \coordinate[xshift=5pt] (c) at (b-|bb);
-  \coordinate[xshift=5pt] (cc) at (bb-|output.east);
-  \node[fit=(c)(cc), draw, dashed, very thin]{};
 \end{tikzpicture}
 \end{document}
 
