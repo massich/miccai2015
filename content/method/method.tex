@@ -1,5 +1,5 @@
 % include the figures path relative to the master file
-\graphicspath{ {./content/method/figures/visual_cues/}{./content/method/figures/}}
+\graphicspath{{./content/method/figures/visual_cues/}{./content/method/figures/}{./content/method/figures/method_highlights/}}
 
 \section{Description of the segmentation methodology}\label{sec:method}
 
@@ -92,29 +92,54 @@ Need to be taken into account while choosing the most desirable minimization str
 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[b]{0.19\textwidth}
+    \begin{subfigure}[b]{0.23\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{problem}
-        %\caption{{\small Problem definition}}
+        \begin{tikzpicture}[node distance=3pt, inner sep=0]
+          \node[]            (us) {\includegraphics[width=2.6cm]{us.png}};
+          \node[below=of us] (gt) {\includegraphics[width=2.6cm]{gt.png}};
+        \end{tikzpicture}
         \label{fig:methodTerms:problem}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.39\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{data}
-        %\caption[]% {{\small Data term}}
+        \begin{tikzpicture}[node distance=3pt, inner sep=0]
+          \node[]           (a){\includegraphics[width=2.6cm]{a.png}};
+          \node[below=of a] (b){\includegraphics[width=2.6cm]{b.png}};
+          \node[right=of a] (c){\includegraphics[width=2.6cm]{c.png}};
+          \node[below=of c] (d){\includegraphics[width=2.6cm]{d.png}};
+        \end{tikzpicture}
         \label{fig:methodTerms:data}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.39\textwidth}
+    \begin{subfigure}[b]{0.23\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{smooth}
+        \begin{tikzpicture}[node distance=3pt, inner sep=0]
+          \node[]           (a){\includegraphics[width=2.6cm]{f.png}};
+          \node[below=of a] (b){\includegraphics[width=2.6cm]{g.png}};
+        \end{tikzpicture}
         %\caption[]% {{\small Pairwise term }}
         \label{fig:methodTerms:boundary}
     \end{subfigure}
-    \caption {\small Methodology Highlights. (a) Problem definition,
-    (b) Data term: Site contribution for particular cases where $\omega_s=l|\forall s \in \mathcal{S}$,
-    (c) Pairwise term: labeling configurations with more boundaries are penalized.}
+    \\
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \input{./content/method/figures/method_highlights/highlights.tex}
+        %\caption[]% {{\small Pairwise term }}
+        \label{fig:methodTerms:boundary}
+    \end{subfigure}
+
+    \caption {
+      \protect\includegraphics[height=1em]{fig_legend.pdf}
+      \small Methodology Highlights.
+      % \protect\tikz{\node[draw, minimum width=10pt, minimum height=10pt](0){x};}
+      (a) \acs{bus} image example.
+      (b) Superpixels' representation coloured using dataset's accompanying multi-label \acs{gt}.
+      (c) \ac{gt} color code.
+      (d) Data term. Cost of labelling all sites as: pectoral, lungs, adipose tissue or lesion.
+      Highly saturated colouring indicates that low data cost when assigning the site to the label of this colour.
+      (e) Pairwise term. Labeling configurations with more boundaries are penalized.}
     \label{fig:methodTerms}
 \end{figure}
 
