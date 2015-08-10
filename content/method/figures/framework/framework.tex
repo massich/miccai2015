@@ -1,7 +1,7 @@
 \documentclass{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
-\usetikzlibrary{shapes, arrows, positioning, fit, calc}
+\usetikzlibrary{shapes, arrows, arrows.meta, positioning, fit, calc}
 
 \input{./framework_icons.tex}
 
@@ -36,9 +36,13 @@
 \newcommand{\Sexamples}{
   \begin{tikzpicture}[node distance=3pt]
     \tiny
-    \node[label={below:{\emph{i.e.}\,Pixels}}](a){\normalPic{\pointMapping}};
-    \node[label={below:{\emph{i.e.}\,Patches}}, right=of a](b){\normalPic{\rigitMapping}};
-    \node[label={below:{\emph{i.e.}\,Superpixels}}, right=of b]{\labelPic{\spMapping}};
+    % \node[label={[text width=2cm]below:{\emph{i.e.}\,Pixels, Patches or Superpixels}}](a){\normalPic{\pointMapping}};
+    \node(a){\normalPic{\pointMapping}};
+    % \node[label={below:{\emph{i.e.}\,Patches}}, right=of a](b){\normalPic{\rigitMapping}};
+    % \node[label={below:{\emph{i.e.}\,Superpixels}}, right=of b]{\labelPic{\spMapping}};
+    \node[right=of a](b){\normalPic{\rigitMapping}};
+    \node[right=of b]{\labelPic{\spMapping}};
+    % \bbox
   \end{tikzpicture}
 }
 
@@ -98,15 +102,15 @@
 
 %% Draw the links
     %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
-  \coordinate (xx) at ($(bwImage.east)!0.5!(map.west)$);
-  \tikzstyle{p}=[draw=gray, line width=3pt, -latex]
+  \coordinate (xx) at ($(bwImage.east)!0.7!(map.west)$);
+  \tikzstyle{p}=[draw=gray, line width=3pt, -{Triangle[length=6,round]}]
   \tikzstyle{l}=[inner sep=3pt, at start, above, anchor=south west, line width=1pt]
   \path[p]   (xx)        |-  (features.west);
   \path[p]   (map.east)  -|  (mrf.north);
   \path[p]   (bwImage)   --  node[l]{$I(\cdot)$}                               (map);
   \path[p]   (svm.east)  -|  node[l]{$D_s(\cdot)$}                             (min.north);
   \path[p]   (min)       --  node[l](w){$\hat{\omega}$}                        (remap);
-  \path[p]   (mrf.east)  -|  node[l]{$V_{s,r}(\cdot,\cdot)$}                   (min.south);
+  \path[p]   (mrf.east)  -|  node[l]{$V_{s,r}(\cdot,\cdot)$}                   ([yshift=7pt]min.south);
   %\path[p]  (map.east)  -|  node[l](S){$\mathcal{S}$} node[below]{\Sexamples} ([yshift=7pt]features.south);
   \path[p]   (map.east)  -|  node[l](S){$\mathcal{S}$}                         ([yshift=7pt]features.south);
   \path[p]   (features)  --  node[l,inner sep=0pt](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
