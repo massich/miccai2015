@@ -6,6 +6,7 @@
 \input{./framework_icons.tex}
 
 
+
 \begin{document}
 \definecolor{c808080}{RGB}{128,128,128}
 \definecolor{c999999}{RGB}{153,153,153}
@@ -58,11 +59,11 @@
     (map){\normalPic{\map}};
 
   % features
-  \node[above right=10pt and 20pt of map, label={below:Features}]
+  \node[above right=10pt and 10pt of map, label={below:Features}]
     (features){\normalPic{\featuresBlock}};
 
   % SVM
-  \node[right=50pt of features, label={below:Classifier}]
+  \node[right=55pt of features, label={below:Classifier}]
     (svm){\normalPic{\classBlock}};
 
   % MRF
@@ -82,8 +83,8 @@
     (output){\normalPic{\colorImage}};
 
 %% Draw the blocks
-  \coordinate (stageA) at ($(features.east)!0.5!(mrf.west)$);
-  \coordinate (stageB) at ($(min.east)!0.8!(remap.west)$);
+  \coordinate (stageA) at ($(features.east)!0.6!(mrf.west)$);
+  \coordinate (stageB) at ($(min.east)!0.7!(remap.west)$);
   \coordinate[yshift=15pt] (stageA) at (stageA|-current bounding box.north);
   \coordinate[yshift=15pt] (stageB) at (stageB|-current bounding box.north);
   \coordinate[yshift=15pt] (stageL) at (bwImage.west|-current bounding box.north);
@@ -93,15 +94,16 @@
     (stageB) -- (stageB|-current bounding box.south)
   ;
 
-  \node[text width=3cm] at ($(stageL)!0.5!(stageA)$)
+  \node[text width=2.2cm] at ($(stageL)!0.5!(stageA)$)
     (stage_1){1. Mapping-Stage $I(\cdot) \rightarrow \{\mathcal{S}, \mathcal{F}\}$};
-  \node[text width=3.5cm] at ($(stageA)!0.5!(stageB)$)
+  \node[text width=2.8cm] at ($(stageA)!0.5!(stageB)$)
     (stage_2){2. Minimization-Stage $\hat{\omega} = \arg \min_{{\omega}} \,U(\omega)$};
-  \node[text width=3.5cm] at ($(stageB)!0.5!(stageR)$)
+  \node[text width=2.6cm] at ($(stageB)!0.5!(stageR)$)
     (stage_3){3. Re-Mapping-Stage $\{\mathcal{S},\hat{\omega}\} \rightarrow I(\cdot)$};
 
 %% Draw the links
     %\path [draw, dashed] ($(bwImage.east)!0.5!(map.west)$) |- node [near start] {hi}(features.west);
+  \begin{tiny}
   \coordinate (xx) at ($(bwImage.east)!0.7!(map.west)$);
   \tikzstyle{p}=[draw=gray, line width=3pt, -{Triangle[length=6,round]}]
   \tikzstyle{l}=[inner sep=3pt, at start, above, anchor=south west, line width=1pt]
@@ -113,15 +115,16 @@
   \path[p]   (mrf.east)  -|  node[l]{$V_{s,r}(\cdot,\cdot)$}                   ([yshift=7pt]min.south);
   %\path[p]  (map.east)  -|  node[l](S){$\mathcal{S}$} node[below]{\Sexamples} ([yshift=7pt]features.south);
   \path[p]   (map.east)  -|  node[l](S){$\mathcal{S}$}                         ([yshift=7pt]features.south);
-  \path[p]   (features)  --  node[l,inner sep=0pt](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
+  \path[p]   (features)  --  node[l](table){$|\mathcal{S}|\times|\mathcal{F}|$}    (svm);
   \path[p]   (remap)     --  node[l]{$I'(\cdot)$}                              (output);
   \path[p, dashed] (xx) |- node(to_mrf){}(mrf.west) ;
+  \end{tiny}
 
 
   % TODO: this should be nodes in the path, but I've troubles with the scopes
-  \node[below left=10pt of S, anchor=north west, inner sep=0pt]{\Sexamples};
-  \node[below left=10pt and 0pt of w, anchor=north west, inner sep=0pt]{\labelPic{\spMapping}};
-  \node[below left=10pt and 0pt of table, anchor=north west, inner sep=0pt]{\labelPic{\classificableSample}};
+  \node[below left=3pt and -2pt of S, anchor=north west, inner sep=0pt]{\Sexamples};
+  \node[below left=3pt and -2pt of w, anchor=north west, inner sep=0pt]{\labelPic{\spMappingColor}};
+  \node[below left=3pt and -2pt of table, anchor=north west, inner sep=0pt]{\labelPic{\classificableSample}};
 
 \end{tikzpicture}
 \end{document}
